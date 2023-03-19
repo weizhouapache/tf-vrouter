@@ -2363,6 +2363,8 @@ vr_napi_poll(struct napi_struct *napi, int budget)
      * Return value of napi_gro_receive() changed across Linux versions.
      */
     int ret, napi_gro_err = NET_RX_DROP;
+#elif (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 12, 0))
+    gro_result_t ret, napi_gro_err = GRO_MERGED_FREE;
 #else
     gro_result_t ret, napi_gro_err = GRO_DROP;
 #endif
