@@ -361,7 +361,7 @@ struct vr_drop_loc
 };
 
 typedef struct vr_pkt_drop_log {
-    time_t timestamp;
+    time64_t timestamp;
     unsigned char   vp_type;
     unsigned short  drop_reason;
     unsigned short  vif_idx;
