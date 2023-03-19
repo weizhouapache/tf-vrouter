@@ -14,6 +14,7 @@
 #include <asm/page.h>
 #include <linux/netdevice.h>
 #include <linux/pagemap.h>
+#include <linux/mm.h>
 
 #include "vrouter.h"
 #include "vr_mem.h"
@@ -119,7 +120,7 @@ __vr_huge_page_get(uint64_t uspace_vmem, int npages, int mem_size, int hugepage_
      * Expectation is that the pages are pinned in the physical
      * memory and are not going to be faulted
      */
-    down_read(&current->mm->mmap_sem);
+    mmap_read_lock(current->mm);
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,9,0))
     spages = get_user_pages(uspace_vmem, npages, FOLL_WRITE, pmem, NULL);
 #else
@@ -133,7 +134,7 @@ __vr_huge_page_get(uint64_t uspace_vmem, int npages, int mem_size, int hugepage_
 #endif
 
 #endif
-    up_read(&current->mm->mmap_sem);
+    mmap_read_unlock(current->mm);
 
     /*
      * If number of pinned pages are less than requested,
