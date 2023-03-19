@@ -84,6 +84,7 @@ ifneq ($(KERNELRELEASE), )
 	ccflags-y += -I$(SANDESH_EXTRA_HEADER_PATH)/sandesh/library/c
 	ccflags-y += -g -Wall
 	ccflags-y += -Werror
+	ccflags-y += -Wno-implicit-fallthrough
 	ifeq ($(shell g++ --version | grep g++ | awk '{print $3}' | cut -d '.' -f 1), 8)
 		# auto_ptr deprecated
 		ccflags-y += -Wno-error=deprecated-declarations
