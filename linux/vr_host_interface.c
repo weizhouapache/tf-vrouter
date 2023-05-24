@@ -1841,12 +1841,12 @@ linux_if_add(struct vr_interface *vif)
 
     if (vif_is_virtual(vif)) {
         skb_queue_head_init(&vif->vr_skb_inputq);
-        netif_napi_add(pkt_gro_dev, &vif->vr_napi, vr_napi_poll, 64);
+        netif_napi_add(pkt_gro_dev, &vif->vr_napi, vr_napi_poll);
         napi_enable(&vif->vr_napi);
 
         /* Lets enable for L2 as well */
         skb_queue_head_init(&vif->vr_skb_l2_inputq);
-        netif_napi_add(pkt_l2_gro_dev, &vif->vr_l2_napi, vr_napi_poll, 64);
+        netif_napi_add(pkt_l2_gro_dev, &vif->vr_l2_napi, vr_napi_poll);
         napi_enable(&vif->vr_l2_napi);
     }
 
